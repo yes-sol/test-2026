@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Paper Plane Motion Test</title>
+<meta name="description" content="주문 대기 화면 상단 일러스트의 종이비행기 모션 A/B/C 비교 프로토타입">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <div>
+    <h1>Paper Plane Motion Test</h1>
+    <p>폰을 클릭하면 해당 버전만 재생/정지됩니다. 아래 주문 카드는 정적 상태입니다.</p>
+  </div>
+  <div class="controls">
+    <button id="playAll" type="button">전체 재생</button>
+    <button id="pauseAll" type="button">전체 정지</button>
+    <button id="restart" type="button">처음부터</button>
+    <span class="sep"></span>
+    <div class="seg" role="group" aria-label="재생 속도">
+      <button type="button" data-speed="0.25" aria-pressed="false">0.25×</button>
+      <button type="button" data-speed="0.5" aria-pressed="false">0.5×</button>
+      <button type="button" data-speed="1" aria-pressed="true">1×</button>
+    </div>
+    <button id="blurToggle" class="toggle" type="button" aria-pressed="true">Motion blur</button>
+  </div>
+</header>
+
+<main class="row" id="row"></main>
+
+<template id="phoneTpl">
+  <div class="col">
+    <div class="label"><b></b><span></span><em class="chip">재생 중</em></div>
+    <div class="phone" role="button" tabindex="0">
+      <canvas class="fx"></canvas>
+      <div class="status">
+        <span>9:41</span>
+        <svg width="68" height="12" viewBox="0 0 68 12" aria-hidden="true">
+          <g fill="#1f2329"><rect x="0" y="8" width="3" height="4" rx="1"/><rect x="4.5" y="6" width="3" height="6" rx="1"/><rect x="9" y="3.5" width="3" height="8.5" rx="1"/><rect x="13.5" y="1" width="3" height="11" rx="1"/></g>
+          <path d="M30 3.4a10 10 0 0 1 13 0M32.2 6a6.6 6.6 0 0 1 8.6 0M34.4 8.6a3.2 3.2 0 0 1 4.2 0" stroke="#1f2329" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <rect x="45.5" y="1" width="20" height="10" rx="3" fill="none" stroke="#1f2329" stroke-opacity=".4"/><rect x="47.5" y="3" width="16" height="6" rx="1.5" fill="#1f2329"/><rect x="66.3" y="4" width="1.5" height="4" rx=".7" fill="#1f2329" fill-opacity=".4"/>
+        </svg>
+      </div>
+      <h2 class="headline">Waiting for store to<br>accept...</h2>
+      <div class="play-hint"><svg width="20" height="20" viewBox="0 0 20 20"><path d="M6 3.5v13l11-6.5z" fill="#fff"/></svg></div>
+
+      <div class="card">
+        <img class="map" src="assets/map.svg" alt="배송지 주변 지도" width="286" height="104">
+        <div class="rows">
+          <div class="r">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#3a3f47" stroke-width="1.6"><path d="M9 16.2s5.2-4.7 5.2-8.8A5.2 5.2 0 0 0 3.8 7.4c0 4.1 5.2 8.8 5.2 8.8z"/><circle cx="9" cy="7.4" r="1.9"/></svg>
+            <div class="t"><b>Home ·</b> 1234, 16th Floor, HJ Tower, 570, Teheran-ro Songpa-gu, Seoul</div>
+          </div>
+          <div class="r">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#3a3f47" stroke-width="1.6" stroke-linejoin="round"><path d="M1.5 4.5h9v8h-9zM10.5 7.5h3.3l2.7 3v2h-6"/><circle cx="4.8" cy="13.6" r="1.6" fill="#fff"/><circle cx="13.2" cy="13.6" r="1.6" fill="#fff"/></svg>
+            <div class="t"><b>Leave at door (ring bell)</b></div>
+          </div>
+          <div class="r">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#3a3f47" stroke-width="1.6" stroke-linecap="round"><path d="M4 2v5a2 2 0 0 0 4 0V2M6 2v14M13.5 16V2c-2 1.4-2.8 4-2.8 7h2.8"/></svg>
+            <div style="flex:1">
+              <div style="display:flex"><div class="t s">McCrispy Chicken Classic Large Set</div><div class="qty">1x</div></div>
+              <div class="sub">Rocket Sushi</div>
+            </div>
+          </div>
+          <div class="r">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#3a3f47" stroke-width="1.6" stroke-linejoin="round"><path d="M14 9.5V15a1 1 0 0 1-1 1H3.5a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1H9"/><path d="M12.6 2.4l3 3L9.2 11.8H6.2v-3z"/></svg>
+            <div class="t s">Review Event participation&nbsp; Butter garlic fries please!</div>
+          </div>
+        </div>
+      </div>
+      <div class="cta"><span>Looks good (0:10)</span></div>
+      <div class="cancel">Cancel order</div>
+      <div class="home"></div>
+    </div>
+  </div>
+</template>
+
+<script src="js/main.js"></script>
+</body>
+</html>
